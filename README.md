@@ -3,4 +3,4 @@ Video en YouTube: [Ver en YouTube](https://youtu.be/FeUchWwx6TY?si=D4hZ5b8hWVBzK
 He añadido dos nodos nuevos.
 
 ## URL del Flujo
-[Ver en N8N](
+[Ver en N8N](https://github.com/Juanll06/Proyecto-N8N/blob/main/workflow.json)
