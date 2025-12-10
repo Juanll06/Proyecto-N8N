@@ -1,0 +1,534 @@
+{
+  "name": "DragonBall",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "8bc496b8-66bd-4a24-8edb-83531032cf4a",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -784,
+        -32
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "include": "specifiedFields",
+        "fieldsToInclude": "id, name, Race, Ki, gender, Affiliation",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        528,
+        -32
+      ],
+      "id": "27b45132-d322-42e8-b852-69a16f230a6d",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "68155816-d2cd-442b-bbf7-8cb4570e8664",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "e87fa741-59b8-4ae4-a478-5f7e76bfef99",
+              "leftValue": "={{ $json.Race }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "92316399-ad95-4c8c-af5d-16e6e0d9dc75",
+              "leftValue": "={{ $json.Ki }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "894540c1-f02d-4a22-a7c9-b538fbf4534b",
+              "leftValue": "={{ $json.gender }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "9d7299ce-edf9-4fbf-bd0d-c6c57e8d7928",
+              "leftValue": "={{ $json.Affiliation }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -400,
+        -32
+      ],
+      "id": "4a38eb55-0f61-4f93-a26d-8e61b6101b92",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1XH1Mr7FppRkS3hnhEW2rQhG4Kv2CHWEtkc-jz3qph3M",
+          "mode": "list",
+          "cachedResultName": "Tabla información Dragon Ball",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XH1Mr7FppRkS3hnhEW2rQhG4Kv2CHWEtkc-jz3qph3M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Dragon Ball",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XH1Mr7FppRkS3hnhEW2rQhG4Kv2CHWEtkc-jz3qph3M/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -560,
+        -32
+      ],
+      "id": "1b82b0ec-c7aa-46c5-a799-d8d4ffe856c1",
+      "name": "Recibo las columnas de mi excel",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "QMQtm3VQ2lBQDPHT",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://dragonball-api.com/api/characters/{{$json.id}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -112,
+        -32
+      ],
+      "id": "778f3c70-8cc0-47a1-95ac-01f7d2752e4a",
+      "name": "Se hace la petición a la API"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8d3d471e-eaaf-4ce0-8518-d358d52c15c3",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "id": "cf211a9b-e4fa-4777-854c-ce54331484d5",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "414807d4-50af-4c1f-9bbb-2fb7232b0c8a",
+              "name": "race",
+              "value": "={{ $json.race }}",
+              "type": "string"
+            },
+            {
+              "id": "dfb8fe37-4296-4cf7-bb99-ffe39bcfb923",
+              "name": "ki",
+              "value": "={{ $json.ki }}",
+              "type": "string"
+            },
+            {
+              "id": "8bc370ee-4a12-416e-978c-50b3436aff55",
+              "name": "gender",
+              "value": "={{ $json.gender }}",
+              "type": "string"
+            },
+            {
+              "id": "22beff4f-ad7d-48ee-b3a7-8ca80dcb747e",
+              "name": "affiliation",
+              "value": "={{ $json.affiliation }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        48,
+        -32
+      ],
+      "id": "40dbe325-2e40-4c4e-bff5-4d9d06315703",
+      "name": "Les doy formato"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1XH1Mr7FppRkS3hnhEW2rQhG4Kv2CHWEtkc-jz3qph3M",
+          "mode": "list",
+          "cachedResultName": "Tabla información Dragon Ball",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XH1Mr7FppRkS3hnhEW2rQhG4Kv2CHWEtkc-jz3qph3M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Dragon Ball",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XH1Mr7FppRkS3hnhEW2rQhG4Kv2CHWEtkc-jz3qph3M/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "name": "={{ $json.name }}",
+            "Race": "={{ $json.race }}",
+            "Ki": "={{ $json.ki }}",
+            "gender": "={{ $json.gender }}",
+            "Affiliation": "={{ $json.affiliation }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Race",
+              "displayName": "Race",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ki",
+              "displayName": "Ki",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gender",
+              "displayName": "gender",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Affiliation",
+              "displayName": "Affiliation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        352,
+        -32
+      ],
+      "id": "0e3a3f60-4b40-4f9e-a1db-dbe8cdd8c594",
+      "name": "Se actualiza mi excel",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "QMQtm3VQ2lBQDPHT",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "juanloopezl06@gmail.com",
+        "subject": "Tabla de Dragon Ball",
+        "message": "=<h1>Actualización de la tabla de Dragon Ball</h1>\n<h2>Se han actualizado los siguientes personajes:</h2>\n\n<ul>\n{{ $json[\"data\"].map(p => \"<li><strong>\" + p.name + \"</strong> - Raza: \" + p.Race + \" | Ki: \" + p.Ki + \"</li>\").join('') }}\n</ul",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        912,
+        -32
+      ],
+      "id": "1949e98c-1bb3-486b-9bcd-d96694155272",
+      "name": "Se envía un correo",
+      "webhookId": "07542a8f-151e-40b7-a4a6-0f89d06cc91c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "TTWCjiO7i7sGT1CO",
+          "name": "Gmail juanloopezl06@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## GOOGLE SHEETS\nComunicación con nuestra hoja de excel",
+        "height": 288,
+        "width": 352
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -608,
+        -160
+      ],
+      "typeVersion": 1,
+      "id": "88e5496f-f758-4a05-a772-72ca35fcf64b",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## ACTUALIZACIÓN Y NOTIFICA\nSe actualiza nuestra hoja de excel y por correa se avisa de las modificaciones",
+        "height": 288,
+        "width": 768,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        288,
+        -160
+      ],
+      "typeVersion": 1,
+      "id": "7f615df1-9a2b-424d-98ca-306eefa47d14",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## RECOGIDA DE DATOS\nHacemos una petición a la API que hemos escogido y nos quedamos con los datos y el formato que yo quiero",
+        "height": 288,
+        "width": 352,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -160,
+        -160
+      ],
+      "typeVersion": 1,
+      "id": "2ec46e77-c1b4-48be-9ed3-2cb49099243a",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        -32
+      ],
+      "id": "2ef6a57a-4781-4ab9-87a6-45a7fa8ca3a0",
+      "name": "\"Wait\", esperamos un tiempo determinado antes de enviar el correo",
+      "webhookId": "49bf5365-a286-40f1-85bc-a0d3cc38af5c"
+    },
+    {
+      "parameters": {
+        "maxItems": 5
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        176
+      ],
+      "id": "23697d44-6294-46d3-89a2-088570730209",
+      "name": "\"Limit\" Controlamos la cantidad de datos que pasamos"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Recibo las columnas de mi excel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "\"Wait\", esperamos un tiempo determinado antes de enviar el correo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "\"Limit\" Controlamos la cantidad de datos que pasamos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recibo las columnas de mi excel": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Se hace la petición a la API": {
+      "main": [
+        [
+          {
+            "node": "Les doy formato",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Les doy formato": {
+      "main": [
+        [
+          {
+            "node": "Se actualiza mi excel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Se actualiza mi excel": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\"Wait\", esperamos un tiempo determinado antes de enviar el correo": {
+      "main": [
+        [
+          {
+            "node": "Se envía un correo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\"Limit\" Controlamos la cantidad de datos que pasamos": {
+      "main": [
+        [
+          {
+            "node": "Se hace la petición a la API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ea9a2e46-7322-4cbd-bdeb-6666e4424579",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e4d03de5664ed4ffbc06d0b339582ae0ed4eab5f628b336fca5f1e779a41c648"
+  },
+  "id": "JiU90184SGs5GxFw",
+  "tags": []
+}
